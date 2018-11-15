@@ -1,0 +1,14 @@
+input[type="text"] {
+    border-color: black;
+}
+
+input[type="submit"]{
+    border-color: black;
+}
+
+form {
+    display: inline-block;
+}
+.parent {
+    text-align: center;
+}

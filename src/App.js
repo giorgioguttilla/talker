@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'; 
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import LoginPage from './routes/LoginPage/LoginPage.js';
+import MainPage from './routes/MainPage/MainPage.js';
 
-class App extends Component {
-  render() {
+
+const MainMenu = () => {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+        <div>
+          <Link to="/">
+            <button>Login</button>
+          </Link>
+          <Link to="/mainpage">
+            <button>Main</button>
+          </Link>
+        </div>
+    ); 
+};
+
+
+class App extends React.Component {
+    render(){
+        return(
+            <Router>
+                <div>
+                <MainMenu />
+                
+                <Route exact path="/" component={LoginPage} />
+                <Route exact path="/mainpage" component={MainPage} />
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

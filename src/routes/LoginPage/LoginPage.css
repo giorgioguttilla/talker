@@ -1,0 +1,27 @@
+@font-face {
+    font-family: BFTinyHand-Regular;
+    src: url("../../assets/BFTinyHand-Regular.otf") format("opentype");
+}
+
+.box{
+    width: 300px;
+    height: 300px;
+    background-color: whitesmoke;
+    padding: 5px;
+    margin: auto;
+}
+
+.logo{
+    font-size: 200%;
+    font-family: BFTinyHand-Regular;
+    text-align: center;
+    vertical-align: center;
+    color: white;
+    background-color: black;
+    height: 55px;
+}
+span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
