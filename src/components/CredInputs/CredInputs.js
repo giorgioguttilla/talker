@@ -1,5 +1,7 @@
 import React, {Component} from 'react'; 
 import './CredInputs.css';
+import * as LoginUtils from '../../components/LoginUtils/LoginUtils';
+
 
 //https://www.tutorialspoint.com/react_native/react_native_text_input.htm
 class CredInputs extends Component {

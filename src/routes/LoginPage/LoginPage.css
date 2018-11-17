@@ -9,6 +9,7 @@
     background-color: whitesmoke;
     padding: 5px;
     margin: auto;
+    vertical-align: middle;
 }
 
 .logo{
@@ -24,4 +25,13 @@ span {
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
+}
+
+body {
+    background-image: url('../../assets/White_square.jpg'); 
+}
+
+@keyframes bgmove {
+    from {background-position: 0 0;}
+    to {background-position: 256px 256px;}
 }
