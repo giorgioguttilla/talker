@@ -11,17 +11,61 @@ var config = {
 };
 
 firebase.initializeApp(config);
+
 var database = firebase.database();
 
 
 
+//updates relevant information when user changes
+
+var username, uid;
+
+firebase.auth().onAuthStateChanged(function(user){
+    if(user != null){
+        username = user.displayName;
+        uid = user.uid;
+
+        console.log(username);
+        console.log(uid);
+        console.log(user.email);
+    } else {
+
+    }
+});
 
 
-export function doLogin(username, password){
-    return null;
+export function doLogin(email, password){
+
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        console.log(error.code);
+    });
 }
 
-export function doRegister(username, password){
-    
-    return null;
+
+export function doRegister(email, disp, password){
+
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(
+        function() {
+
+            var user = firebase.auth().currentUser;
+
+            user.updateProfile({displayName: disp, photoURL: null});
+            
+        
+        }).catch(function(error){
+            console.log(error.code);
+            console.log(error.message);
+    });
+}
+
+
+export function isLoggedIn(){
+
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+        return true;
+    } else {
+        return false;
+    }
 }
