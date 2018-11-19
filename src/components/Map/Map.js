@@ -7,12 +7,6 @@ class WorldMap extends Component {
   constructor(){
       super();
       this.state = {}
-      /*this.state = {
-          //lat: 50.0,
-          //lng: 50.0,
-          zoom: 11,
-          loading: true
-      };*/
   }
   
   componentDidMount() {

@@ -1,4 +1,10 @@
+/*
+import React, {Component} from 'react'; 
 import * as firebase from 'firebase';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import MainPage from '../../routes/MainPage/MainPage.js';
+import Redirect from 'react-router-dom/Redirect';
+
 
 // Initialize Firebase
 var config = {
@@ -34,15 +40,30 @@ firebase.auth().onAuthStateChanged(function(user){
 });
 
 
-export function doLogin(email, password){
+export async function doLogin(email, password){
 
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    //window.location = '/mainpage';
+
+    firebase.auth().signInWithEmailAndPassword(email, password).then(
+        
+        function(){
+
+            var user = firebase.auth().currentUser;
+
+            console.log("cool!");
+
+            return 'logged';  
+        }
+
+    ).catch(function(error) {
         console.log(error.code);
+        return 'not logged';
     });
+
 }
 
 
-export function doRegister(email, disp, password){
+export async function doRegister(email, disp, password){
 
     firebase.auth().createUserWithEmailAndPassword(email, password).then(
         function() {
@@ -50,6 +71,9 @@ export function doRegister(email, disp, password){
             var user = firebase.auth().currentUser;
 
             user.updateProfile({displayName: disp, photoURL: null});
+            
+            console.log('thisworks');
+
             
         
         }).catch(function(error){
@@ -69,3 +93,4 @@ export function isLoggedIn(){
         return false;
     }
 }
+*/

@@ -3,13 +3,7 @@ import './LoginPage.css';
 import CredInputs from '../../components/CredInputs/CredInputs'
 
 class LoginPage extends Component {
-    login(){
 
-    }
-
-    register(){
-
-    }
 
     render(){
         return(
