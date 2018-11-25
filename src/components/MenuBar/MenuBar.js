@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import * as firebase from 'firebase';
 import './MenuBar.css'
+import Dropdown from '../Dropdown/Dropdown'
 
 class MenuBar extends Component {
     constructor(props){
@@ -33,12 +34,14 @@ class MenuBar extends Component {
                         Log Out
                     </button>
                     
-
-
-                    <span className='userButton'>
+                    <Dropdown buttonInfo={
+                        <span className='userButton'>
                         <img className='profilePic' src={require('../../assets/m7QiQ.png')}></img>
                         {firebase.auth().currentUser.displayName}
-                    </span>
+                        </span>
+                    }/>
+
+                    
 
                     <span className='logoMP'>
                         talker
