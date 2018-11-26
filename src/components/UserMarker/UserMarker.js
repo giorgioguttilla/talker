@@ -29,7 +29,7 @@ class UserMarker extends Component {
                 
                 <span className="postBox">
                     <div>Post a Comment</div>
-                    <input type="text" placeholder="" value={this.state.commentText} onChange={this.updateText}></input>
+                    <input type="text" placeholder="Max Chars: 200" value={this.state.commentText} onChange={this.updateText}></input>
                     <button onClick={this.doPost}>
                     Post
                     </button>

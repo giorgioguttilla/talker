@@ -1,4 +1,8 @@
 .postBox{
     background-color: white;
     padding: 5px;
+    z-index: 50;
+    
+    border-style: solid;
+    border-color: black;
 }

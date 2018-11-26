@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import UserMarker from '../UserMarker/UserMarker';
+import Post from '../Post/Post'
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
  
@@ -26,7 +27,7 @@ class WorldMap extends Component {
       console.warn("oops gps fugged up");
   }
 
-  
+  //need to do something with cookies to make this more accurate
   componentDidMount() {
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(this.getPos, this.error, this.options);
@@ -44,10 +45,13 @@ class WorldMap extends Component {
             defaultCenter={{lat: this.state.lat, lng: this.state.lng}}
             defaultZoom={18}
             >
-            <AnyReactComponent
-                lat={59.955413}
-                lng={30.337844}
-                text={'Kreyser Avrora'}
+
+            <Post
+                lat={39}
+                lng={-90}
+                user={{displayName: 'paul'}}
+                text='this is a test post my guy. asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
+                score='127'
             />
 
             <UserMarker 
