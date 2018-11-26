@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import UserMarker from '../UserMarker/UserMarker';
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
  
@@ -9,19 +10,28 @@ class WorldMap extends Component {
       this.state = {}
   }
   
-  componentDidMount() {
-      if(navigator.geolocation){
-          navigator.geolocation.getCurrentPosition(this.getPos);
-      }
+  options = {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
   }
 
   getPos = (pos) => {
     this.setState({lat: pos.coords.latitude});
     this.setState({lng: pos.coords.longitude});
-    console.log(pos.coords.latitude);
+    console.log(pos);
   }
   
+  error = (err) => {
+      console.warn("oops gps fugged up");
+  }
 
+  
+  componentDidMount() {
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(this.getPos, this.error, this.options);
+    }
+}
 
   render() {
     if(this.state.lng){
@@ -38,6 +48,11 @@ class WorldMap extends Component {
                 lat={59.955413}
                 lng={30.337844}
                 text={'Kreyser Avrora'}
+            />
+
+            <UserMarker 
+                lat={this.state.lat}
+                lng={this.state.lng}
             />
 
             </GoogleMapReact>
