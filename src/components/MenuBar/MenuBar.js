@@ -34,13 +34,30 @@ class MenuBar extends Component {
                         Log Out
                     </button>
                     
-                    <Dropdown buttonInfo={
+                    <Dropdown 
+                    buttonInfo={
                         <span className='userButton'>
                         <img className='profilePic' src={require('../../assets/m7QiQ.png')}></img>
                         {firebase.auth().currentUser.displayName}
                         </span>
+                    }
+                    menu={
+                        <div>
+                            user menu
+                        </div>
                     }/>
 
+                    <Dropdown 
+                    buttonInfo={
+                        <span>
+                            -
+                        </span>
+                    }
+                    menu={
+                        <div>
+                            shpong
+                        </div>
+                    }/>
                     
 
                     <span className='logoMP'>

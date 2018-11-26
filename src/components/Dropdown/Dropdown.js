@@ -9,7 +9,7 @@ class Dropdown extends Component {
         super(props);
         this.clickHandler = this.clickHandler.bind(this);
         this.state = {
-            down: true
+            down: false
         };
     }
 
@@ -19,18 +19,41 @@ class Dropdown extends Component {
     }
 
     render(){
+
+        var cn = '';
+
+        if(this.state.down){
+            cn = 'dropdownMenuOpen';
+        } else {
+            cn = 'dropdownMenuClosed';
+        }
+        //swaps between null and info, useless with css styling
+        /*
         return(
-            <div className='dropdown'>
+            <span className='dropdownWhole'>
                 <button onClick={this.clickHandler}>
                     {this.props.buttonInfo}
                 </button>
 
                 {this.state.down ? (
-                    <div>
-                        CONTENTS
+                    <div className={cn}>
+                        {this.props.menu}
                     </div>
                 ): null}
-            </div>
+            </span>
+        );
+        */
+        return (
+            <span className='dropdownWhole'>
+                <button onClick={this.clickHandler}>
+                    {this.props.buttonInfo}
+                </button>
+
+                
+                <div className={cn}>
+                    {this.props.menu}
+                </div>
+            </span>
         );
     }
 }

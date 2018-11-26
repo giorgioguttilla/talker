@@ -1,8 +1,11 @@
 .bar{
+    position: fixed;
+    top: 0;
     width: 100%;
-    height: 50px;
+    height: 8vh;
     vertical-align: middle;
-    text-align: center;
+    z-index: 100;
+    background-color: white;
 }
 
 .logout{
@@ -31,7 +34,27 @@
     padding: 10px
 }
 
-.dropdown{
+.dropdownWhole{
     position: relative;
     z-index: 10;
+}
+.dropdownMenuClosed{
+    position: fixed;
+    left: 0;
+    top: -100vh;
+    width: 200px;
+    height: 100vh;
+    
+    background-color: aliceblue;
+    transition: top .3s;
+}
+.dropdownMenuOpen{
+    position: fixed;
+    left: 0;
+    top: 8vh;
+    width: 200px;
+    height: 100vh;
+    background-color: aliceblue;
+    transition: top .3s;
+
 }
