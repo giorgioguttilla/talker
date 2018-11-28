@@ -98,13 +98,6 @@ class CredInputs extends Component {
                     }
                 );
                 
-                //sets user in database
-                
-                
-
-                
-                
-            
             }).catch(function(error){
                 console.log(error.code);
                 console.log(error.message);

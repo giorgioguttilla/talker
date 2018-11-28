@@ -17,8 +17,32 @@ class UserMarker extends Component {
     }
 
     doPost = () => {
-        console.log(this.state.commentText);
+
+        //https://firebase.google.com/docs/database/web/read-and-write
+        //get user
+        var user = firebase.auth().currentUser;
+
+        //consolidate post data, gets lat and lng from props
+        var data = {
+            author: user.displayName,
+            uid: user.uid,
+            text: this.state.commentText,
+            score: 0,
+            lat: this.props.lat,
+            lng: this.props.lng,
+            timestamp: new Date().getTime()
+        }
+
+        //get post key
+        var newPostKey = firebase.database().ref().child('posts').push().key;
         
+        //update info at post key
+        var updates = {};
+        updates['/posts/' + newPostKey] = data;
+        updates['/user-posts/' + user.uid + '/' + newPostKey] = data;
+
+        //applies updates
+        firebase.database().ref().update(updates);
     }
 
     updateText = (event) => {
