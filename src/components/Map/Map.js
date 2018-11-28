@@ -19,14 +19,13 @@ if(firebase.apps.length){
     });
 }
 
-var pl = [];
-
+//var pl = [];
 
 class WorldMap extends Component {
     constructor(){
         super();
         this.state = {
-
+            pl: []
         }
         this.getPos.bind(this);
     }
@@ -36,6 +35,8 @@ class WorldMap extends Component {
         timeout: 10000,
         maximumAge: 0
     }
+
+    
 
     getPos = (pos) => {
         this.setState({lat: pos.coords.latitude});
@@ -55,34 +56,50 @@ class WorldMap extends Component {
             navigator.geolocation.getCurrentPosition(this.getPos, this.error, this.options);
         }
 
-        //this does not work
-        var ref = firebase.database().ref('posts');
-        ref.on('value', function(snapshot){
+        let x = [];
+        firebase.database().ref('posts').once('value').then((snapshot) => {
+            //snapshot.forEach(function(childSnapshot){
             snapshot.forEach(function(childSnapshot){
-                pl[childSnapshot.key] = 
-                (<Post>    
-                    lat={childSnapshot.lat}
-                    lng={childSnapshot.lng}
-                    user={childSnapshot.user}
-                    text={childSnapshot.text}
-                    score={childSnapshot.score}
-                </Post>);
-            });
-            console.log(pl);
-        });
-    }
+                x.push({
+                    lat: childSnapshot.val().lat,
+                    lng: childSnapshot.val().lng,
+                    user: {displayName: 'def'},
+                    text: childSnapshot.val().text,
+                    score: childSnapshot.val().score
+                });
 
-    
+            });
+            this.setState({pl: x});
+        });
+    }  
+
     
 
 
     render() {
-
-        if(this.state.lng){
+        const renderPosts = () => this.state.pl.map((cs) => {
             return (
+                <Post    
+                    lat={cs.lat + Math.random() * 0.001}
+                    lng={cs.lng + Math.random() * 0.001}
+                    user={cs.user}
+                    text={cs.text}
+                    score={cs.score}
+                />    
+            );
+        })
+        console.log("map state: ", this.state);
+        
+       
+        
+        if(this.state.lng){
+            console.log(this.state.pl);
+            return (
+                
             
             // Important! Always set the container height explicitly
             <div style={{ height: '100vh', width: '100%' }}>
+                
                 <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyCG1E70cgsFeSnoOkR738YzSKY5e2qX0iA'}}
                 defaultCenter={{lat: this.state.lat, lng: this.state.lng}}
@@ -90,16 +107,19 @@ class WorldMap extends Component {
                 >
 
                 <Post
-                    lat={39}
+                    lat={41}
                     lng={-90}
                     user={{displayName: 'paul'}}
                     text='this is a test post my guy. asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
                     score='127'
                 />
                 
+                {renderPosts()}
+                
+                
 
                 <UserMarker 
-                    lat={this.state.lat}
+                    lat={this.state.lat+1}
                     lng={this.state.lng}
                 />
 
