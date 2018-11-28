@@ -48,17 +48,17 @@ class WorldMap extends Component {
         console.warn("oops gps fugged up");
     }
 
-    //need to do something with cookies to make this more accurate
     componentDidMount() {
         var thisDM = this;
 
+        //need to do something with cookies to make this more accurate
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(this.getPos, this.error, this.options);
         }
 
+        //gets all posts and displays them on the map
         let x = [];
         firebase.database().ref('posts').once('value').then((snapshot) => {
-            //snapshot.forEach(function(childSnapshot){
             snapshot.forEach(function(childSnapshot){
                 x.push({
                     lat: childSnapshot.val().lat,
@@ -119,7 +119,7 @@ class WorldMap extends Component {
                 
 
                 <UserMarker 
-                    lat={this.state.lat+1}
+                    lat={this.state.lat}
                     lng={this.state.lng}
                 />
 
