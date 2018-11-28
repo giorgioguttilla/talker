@@ -7,7 +7,6 @@ import MenuBar from '../../components/MenuBar/MenuBar';
 
 
 
-
 class MainPage extends Component {
     constructor(props){
         super(props);

@@ -5,6 +5,9 @@ import { withRouter, Redirect } from 'react-router-dom';
 import * as firebase from 'firebase';
 
 
+//console.log(firebase.database());
+
+
 
 //https://www.tutorialspoint.com/react_native/react_native_text_input.htm
 class CredInputs extends Component {
@@ -37,7 +40,6 @@ class CredInputs extends Component {
         this.setState({showLogin: false});
     }
 
-    //creates a new user with firebase and asynchronously loads the mainpage after it completes
     login = () => {
         var thisCI = this;
 
@@ -49,7 +51,8 @@ class CredInputs extends Component {
                 if(user){
 
                     console.log("ffff!");
-                    console.log(user);
+                    console.log(user.user.uid); //bizarre but ok
+                    
 
                     thisCI.setState({redirect: '/mainpage'}, () => {
                         console.log(thisCI.state.redirect);
@@ -65,28 +68,48 @@ class CredInputs extends Component {
         });
     }
 
-
+    //creates a new user with firebase and asynchronously loads the mainpage after it completes
     register = () => {
         var thisCI = this;
-
+        
 
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(
             function() {
-    
+
                 var user = firebase.auth().currentUser;
-    
-                user.updateProfile({displayName: thisCI.state.username, photoURL: null});
                 
-                console.log('thisworks');
-    
-                thisCI.setState({redirect: '/mainpage'}, () => {
-                    console.log(thisCI.state.redirect);
-                });
+                //just adds the user to the database under users
+                user.updateProfile({displayName: thisCI.state.username, photoURL: null}).then(
+                    function(){
+                    firebase.database().ref('users/' + user.uid).set({
+                        username: user.displayName,
+                        score: 0,
+                        //any more user info goes here
+                    }).then(
+                        //redirect once its all done
+                        function(){
+                            thisCI.setState({redirect: '/mainpage'}, () => {
+
+                            });
+                        }
+                    );
+                    console.log(user.displayName);
+                    console.log(user.email);
+                    }
+                );
+                
+                //sets user in database
+                
+                
+
+                
+                
             
             }).catch(function(error){
                 console.log(error.code);
                 console.log(error.message);
-        });
+            }
+        );
     }
 
     //if redirect has been initialized, do one, otherwise display appropriate information

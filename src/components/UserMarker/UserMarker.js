@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
 import './UserMarker.css'
+import * as firebase from 'firebase';
 
 const Marker = (
     <div className='markerDot'>
@@ -16,7 +17,8 @@ class UserMarker extends Component {
     }
 
     doPost = () => {
-        console.log(this.state.commentText)
+        console.log(this.state.commentText);
+        
     }
 
     updateText = (event) => {
@@ -29,7 +31,7 @@ class UserMarker extends Component {
                 
                 <span className="postBox">
                     <div>Post a Comment</div>
-                    <input type="text" placeholder="Max Chars: 200" value={this.state.commentText} onChange={this.updateText}></input>
+                    <textarea rows='5' cols='40' placeholder="Max Chars: 200" maxLength='200'  value={this.state.commentText} onChange={this.updateText}></textarea>
                     <button onClick={this.doPost}>
                     Post
                     </button>

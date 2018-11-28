@@ -20,8 +20,11 @@ var database = firebase.database();
 
 //updates relevant information when user changes
 
+//console.log(firebase.database());
+
 var username, uid;
 
+/*
 firebase.auth().onAuthStateChanged(function(user){
     if(user != null){
         username = user.displayName;
@@ -30,26 +33,14 @@ firebase.auth().onAuthStateChanged(function(user){
         console.log(username);
         console.log(uid);
         console.log(user.email);
+
     } else {
 
     }
 });
-
-
-/*
-const MainMenu = () => {
-    return (
-        <div>
-          <Link to="/">
-            <button>Login</button>
-          </Link>
-          <Link to="/mainpage">
-            <button>Main</button>
-          </Link>
-        </div>
-    ); 
-};
 */
+
+
 
 class App extends React.Component {
     render(){
