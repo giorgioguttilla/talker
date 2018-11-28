@@ -56,11 +56,27 @@ class WorldMap extends Component {
             navigator.geolocation.getCurrentPosition(this.getPos, this.error, this.options);
         }
 
+        // //gets all posts and displays them on the map
+        // let allposts = [];
+        // firebase.database().ref('posts').once('value').then((snapshot) => {
+        //     snapshot.forEach(function(childSnapshot){
+        //         allposts.push({
+        //             lat: childSnapshot.val().lat,
+        //             lng: childSnapshot.val().lng,
+        //             username: childSnapshot.val().author,
+        //             text: childSnapshot.val().text,
+        //             score: childSnapshot.val().score
+        //         });
+
+        //     });
+        //     this.setState({pl: allposts});
+        // });
         //gets all posts and displays them on the map
-        let x = [];
-        firebase.database().ref('posts').once('value').then((snapshot) => {
+        
+        firebase.database().ref('posts').on('value', (snapshot) => {
+            let allposts = [];
             snapshot.forEach(function(childSnapshot){
-                x.push({
+                allposts.push({
                     lat: childSnapshot.val().lat,
                     lng: childSnapshot.val().lng,
                     username: childSnapshot.val().author,
@@ -69,14 +85,16 @@ class WorldMap extends Component {
                 });
 
             });
-            this.setState({pl: x});
+            this.setState({pl: allposts});
         });
+        
     }  
 
     
 
 
     render() {
+        //puts posts into an encapsulated post object
         const renderPosts = () => this.state.pl.map((cs) => {
             return (
                 <Post    

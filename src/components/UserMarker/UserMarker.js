@@ -9,14 +9,71 @@ const Marker = (
 )
 
 class UserMarker extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            commentText: ''
+            canPost: true,
+            commentText: '',
+            upl: []
         }
     }
 
+    //should calculate the distance between the user and all their posts and
+    //if too close on any of them then prevent from posting
+    // componentDidMount(){
+
+
+    //     //gets all the posts by the user and stores them for when we need to test proximity
+    //     firebase.auth().onAuthStateChanged((user) => {
+
+    //         let userPosts = [];
+    //         firebase.database().ref('user-posts/' + user.uid).once('value').then((snapshot) => {
+    //             snapshot.forEach(function(childSnapshot){
+    //                 userPosts.push({
+    //                     lat: childSnapshot.val().lat,
+    //                     lng: childSnapshot.val().lng
+    //                 });
+
+    //             });
+    //             //will pass this into user marker
+    //             this.setState({upl: userPosts});
+    //         });
+    //     })
+
+
+    //     var proxTest = true;
+
+    //     this.interval = setInterval(() => {
+
+    //         this.state.upl.forEach((coords) => {
+    //             var dist = //distance formula
+    //             Math.abs(
+    //                 Math.sqrt(
+    //                     Math.pow(
+    //                         (this.props.lat - coords.lat), 2
+    //                     ) + 
+    //                     Math.pow(
+    //                         (this.props.lng - coords.lng), 2
+    //                     )
+    //                 )
+    //             );
+
+    //             if(dist < 0.01){
+    //                 console.log(dist);
+    //                 proxTest = false;
+    //             }
+    //         });
+
+    //         this.setState({canPost: proxTest});
+
+    //     }, 10000);
+    // }
+
+
+    
+
     doPost = () => {
+        this.setState({canPost: false});
 
         //https://firebase.google.com/docs/database/web/read-and-write
         //get user
@@ -50,7 +107,9 @@ class UserMarker extends Component {
     }
 
     render(){
-        return(
+        //console.log(this.state);
+        if(this.state.canPost){
+            return(
             <div>
                 
                 <span className="postBox">
@@ -63,7 +122,15 @@ class UserMarker extends Component {
                 {Marker}
 
             </div>
-        );
+            );
+        } else {
+            return(
+                <div>
+                    need to be further from other posts to post
+                    {Marker}
+                </div>
+            );
+        }
     }
 }
 
