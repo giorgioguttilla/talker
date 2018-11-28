@@ -14,7 +14,7 @@ class Post extends Component {
         return (
             <div className="post">
                 <span className='namemessage'>
-                    {this.props.user.displayName}
+                    {this.props.username}
                     <br></br>
                     {this.props.text}
                 </span>

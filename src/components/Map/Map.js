@@ -63,7 +63,7 @@ class WorldMap extends Component {
                 x.push({
                     lat: childSnapshot.val().lat,
                     lng: childSnapshot.val().lng,
-                    user: {displayName: 'def'},
+                    username: childSnapshot.val().author,
                     text: childSnapshot.val().text,
                     score: childSnapshot.val().score
                 });
@@ -82,7 +82,7 @@ class WorldMap extends Component {
                 <Post    
                     lat={cs.lat + Math.random() * 0.001}
                     lng={cs.lng + Math.random() * 0.001}
-                    user={cs.user}
+                    username={cs.username}
                     text={cs.text}
                     score={cs.score}
                 />    
@@ -109,7 +109,7 @@ class WorldMap extends Component {
                 <Post
                     lat={41}
                     lng={-90}
-                    user={{displayName: 'paul'}}
+                    user={'paul'}
                     text='this is a test post my guy. asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
                     score='127'
                 />
