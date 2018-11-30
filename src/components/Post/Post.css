@@ -14,3 +14,30 @@
 .score{
     width:30%;
 }
+
+.uon{
+    background-color: greenyellow;
+    border-style: solid;
+    border-color: black;
+    width: 100%;
+}
+
+.uoff{
+    background-color: white;
+    border-style: dotted;
+    border-color: black;
+    width: 100%;
+}
+.don{
+    background-color: red;
+    border-style: solid;
+    border-color: black;
+    width: 100%;
+}
+
+.doff{
+    background-color: white;
+    border-style: dotted;
+    border-color: black;
+    width: 100%;
+}

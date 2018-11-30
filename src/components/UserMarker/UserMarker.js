@@ -73,21 +73,25 @@ class UserMarker extends Component {
     
 
     doPost = () => {
-        this.setState({canPost: false});
+        
 
         //https://firebase.google.com/docs/database/web/read-and-write
         //get user
         var user = firebase.auth().currentUser;
+
+        var vtd = {};
+        vtd[user.uid] = 'up';
 
         //consolidate post data, gets lat and lng from props
         var data = {
             author: user.displayName,
             uid: user.uid,
             text: this.state.commentText,
-            score: 0,
+            score: 1,
             lat: this.props.lat,
             lng: this.props.lng,
-            timestamp: new Date().getTime()
+            timestamp: new Date().getTime(),
+            voted: vtd
         }
 
         //get post key
@@ -100,6 +104,8 @@ class UserMarker extends Component {
 
         //applies updates
         firebase.database().ref().update(updates);
+
+
     }
 
     updateText = (event) => {
@@ -107,7 +113,6 @@ class UserMarker extends Component {
     }
 
     render(){
-        //console.log(this.state);
         if(this.state.canPost){
             return(
             <div>

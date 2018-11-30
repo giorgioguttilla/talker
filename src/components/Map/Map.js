@@ -81,7 +81,8 @@ class WorldMap extends Component {
                     lng: childSnapshot.val().lng,
                     username: childSnapshot.val().author,
                     text: childSnapshot.val().text,
-                    score: childSnapshot.val().score
+                    score: childSnapshot.val().score,
+                    key: childSnapshot.key
                 });
 
             });
@@ -96,13 +97,15 @@ class WorldMap extends Component {
     render() {
         //puts posts into an encapsulated post object
         const renderPosts = () => this.state.pl.map((cs) => {
+            console.log(cs.key);
             return (
                 <Post    
-                    lat={cs.lat + Math.random() * 0.001}
-                    lng={cs.lng + Math.random() * 0.001}
+                    lat={cs.lat}
+                    lng={cs.lng}
                     username={cs.username}
                     text={cs.text}
                     score={cs.score}
+                    key={cs.key}
                 />    
             );
         })
@@ -124,13 +127,7 @@ class WorldMap extends Component {
                 defaultZoom={18}
                 >
 
-                <Post
-                    lat={41}
-                    lng={-90}
-                    user={'paul'}
-                    text='this is a test post my guy. asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf'
-                    score='127'
-                />
+                
                 
                 {renderPosts()}
                 
