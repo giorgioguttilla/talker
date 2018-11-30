@@ -12,3 +12,7 @@ form {
 .parent {
     text-align: center;
 }
+
+.error {
+    color: red;
+}

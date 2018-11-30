@@ -3,7 +3,6 @@ import GoogleMapReact from 'google-map-react';
 import UserMarker from '../UserMarker/UserMarker';
 import Post from '../Post/Post'
 import * as firebase from 'firebase';
-import MouseTracker from '../MouseTracker/MouseTracker';
  
 
 
@@ -21,7 +20,7 @@ if(firebase.apps.length){
     });
 }
 
-//var pl = [];
+
 
 class WorldMap extends Component {
     constructor(){
@@ -58,21 +57,7 @@ class WorldMap extends Component {
             navigator.geolocation.getCurrentPosition(this.getPos, this.error, this.options);
         }
 
-        // //gets all posts and displays them on the map
-        // let allposts = [];
-        // firebase.database().ref('posts').once('value').then((snapshot) => {
-        //     snapshot.forEach(function(childSnapshot){
-        //         allposts.push({
-        //             lat: childSnapshot.val().lat,
-        //             lng: childSnapshot.val().lng,
-        //             username: childSnapshot.val().author,
-        //             text: childSnapshot.val().text,
-        //             score: childSnapshot.val().score
-        //         });
-
-        //     });
-        //     this.setState({pl: allposts});
-        // });
+       
         //gets all posts and displays them on the map
         
         firebase.database().ref('posts').on('value', (snapshot) => {
@@ -93,10 +78,6 @@ class WorldMap extends Component {
         
     }  
 
-    
-    // bringToFront = () => {
-    //     console.log('this.state.text');
-    // }
 
 
     render() {

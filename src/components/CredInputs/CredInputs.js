@@ -18,7 +18,8 @@ class CredInputs extends Component {
             username: '',
             password: '',
             showLogin: true,
-            redirect: ''
+            redirect: '',
+            error: ''
         };
     }
 
@@ -64,6 +65,7 @@ class CredInputs extends Component {
         ).catch(function(error) {
             if(error){
                 console.log(error.code);
+                thisCI.setState({error: 'Error: Invalid login'});
             }
         });
     }
@@ -76,31 +78,40 @@ class CredInputs extends Component {
         firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(
             function() {
 
-                var user = firebase.auth().currentUser;
-                
-                //just adds the user to the database under users
-                user.updateProfile({displayName: thisCI.state.username, photoURL: null}).then(
-                    function(){
-                    firebase.database().ref('users/' + user.uid).set({
-                        username: user.displayName,
-                        score: 0,
-                        //any more user info goes here
-                    }).then(
-                        //redirect once its all done
-                        function(){
-                            thisCI.setState({redirect: '/mainpage'}, () => {
+                var usrnme = thisCI.state.username;
 
-                            });
+                //check username validity
+                if(usrnme === '' || usrnme.length < 2 || usrnme.length > 22){
+                    thisCI.setState({error: 'Error: Invalid username. Usernames must be more than one character and less than 22 characters in length.'});
+                } else {
+
+                    var user = firebase.auth().currentUser;
+                    
+                    //just adds the user to the database under users
+                    user.updateProfile({displayName: thisCI.state.username, photoURL: null}).then(
+                        function(){
+                        firebase.database().ref('users/' + user.uid).set({
+                            username: user.displayName,
+                            score: 0,
+                            //any more user info goes here
+                        }).then(
+                            //redirect once its all done
+                            function(){
+                                thisCI.setState({redirect: '/mainpage'}, () => {
+
+                                });
+                            }
+                        );
+                        console.log(user.displayName);
+                        console.log(user.email);
                         }
                     );
-                    console.log(user.displayName);
-                    console.log(user.email);
-                    }
-                );
-                
+                }
             }).catch(function(error){
-                console.log(error.code);
-                console.log(error.message);
+                if(error){
+                    console.log(error.code);
+                    thisCI.setState({error: 'Error: ' + error.message});
+                }
             }
         );
     }
@@ -135,7 +146,7 @@ class CredInputs extends Component {
                     New user? Register here
                     </button> 
 
-                    
+                    <div className='error'>{this.state.error}</div>
 
                 </div>
             );
@@ -164,7 +175,10 @@ class CredInputs extends Component {
     
                     <button onClick={this.register}>
                     Register
-                    </button>                
+                    </button>  
+
+                    <div className='error'>{this.state.error}</div>
+              
                 </div>
             );
         }
