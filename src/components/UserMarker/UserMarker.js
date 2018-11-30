@@ -112,10 +112,15 @@ class UserMarker extends Component {
         this.setState({commentText: event.target.value});
     }
 
+    bringToFront = (e) => {
+        e.target.setAttribute('style', 'z-index: ' + (window.zadd++));
+        console.log(e.target);
+    }
+
     render(){
         if(this.state.canPost){
             return(
-            <div>
+            <div onClick={this.bringToFront}>
                 
                 <span className="postBox">
                     <div>Post a Comment</div>

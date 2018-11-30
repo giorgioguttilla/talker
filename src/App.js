@@ -40,7 +40,8 @@ firebase.auth().onAuthStateChanged(function(user){
 });
 */
 
-
+//global variable that controls display ordering, incremented
+window.zadd = 11;
 
 class App extends React.Component {
     render(){

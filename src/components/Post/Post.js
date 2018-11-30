@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as firebase from 'firebase';
 import './Post.css';
 
+//var zadd = 11;
 
 class Post extends Component {
     constructor(props){
@@ -117,11 +118,14 @@ class Post extends Component {
         });
     }
 
-    
+    bringToFront = (e) => {
+        e.target.setAttribute('style', 'z-index: ' + (window.zadd++));
+        console.log(e.target);
+    }
 
     render(){
         return (
-            <div className="post">
+            <div className="post" onClick={this.bringToFront}>
                 <span className='namemessage'>
                     {this.props.username}
                     <br></br>

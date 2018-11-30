@@ -3,8 +3,10 @@ import GoogleMapReact from 'google-map-react';
 import UserMarker from '../UserMarker/UserMarker';
 import Post from '../Post/Post'
 import * as firebase from 'firebase';
-
+import MouseTracker from '../MouseTracker/MouseTracker';
  
+
+
 
 
 //listens for post change
@@ -92,6 +94,9 @@ class WorldMap extends Component {
     }  
 
     
+    // bringToFront = () => {
+    //     console.log('this.state.text');
+    // }
 
 
     render() {
@@ -100,12 +105,14 @@ class WorldMap extends Component {
             console.log(cs.key);
             return (
                 <Post    
-                    lat={cs.lat}
-                    lng={cs.lng}
+                    lat={cs.lat}// + Math.random() * 0.0001}
+                    lng={cs.lng}// + Math.random() * 0.0001}
                     username={cs.username}
                     text={cs.text}
                     score={cs.score}
                     key={cs.key}
+                    //experimental
+                    //onClick={this.bringToFront}
                 />    
             );
         })
@@ -120,7 +127,7 @@ class WorldMap extends Component {
             
             // Important! Always set the container height explicitly
             <div style={{ height: '100vh', width: '100%' }}>
-                
+
                 <GoogleMapReact
                 bootstrapURLKeys={{ key: 'AIzaSyCG1E70cgsFeSnoOkR738YzSKY5e2qX0iA'}}
                 defaultCenter={{lat: this.state.lat, lng: this.state.lng}}
@@ -137,6 +144,7 @@ class WorldMap extends Component {
                     lat={this.state.lat}
                     lng={this.state.lng}
                 />
+
 
                 </GoogleMapReact>
             </div>
