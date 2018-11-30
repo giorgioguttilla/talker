@@ -108,6 +108,8 @@ class CredInputs extends Component {
     //if redirect has been initialized, do one, otherwise display appropriate information
     render(){
         if(this.state.redirect !== ''){
+            //resets z counter
+            window.zadd = 11;
             return <Redirect to={this.state.redirect}/>;
         }
         if(this.state.showLogin){
