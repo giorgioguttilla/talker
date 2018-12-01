@@ -11,9 +11,11 @@
 }
 .namemessage{
     width: 70%;
+    pointer-events: none;
 }
 .score{
     width:30%;
+
 }
 
 .uon{

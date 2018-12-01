@@ -26,7 +26,7 @@ class WorldMap extends Component {
     constructor(){
         super();
         this.state = {
-            pl: []
+            pl: [],
         }
         this.getPos.bind(this);
     }
@@ -50,7 +50,6 @@ class WorldMap extends Component {
     }
 
     componentDidMount() {
-        var thisDM = this;
 
         //need to do something with cookies to make this more accurate
         if(navigator.geolocation){
@@ -78,12 +77,16 @@ class WorldMap extends Component {
         
     }  
 
-
+    //centers the map on this latlng
+    centerMap = (latlng) => {
+        this.setState({center: latlng});
+        console.log(latlng);
+    }
 
     render() {
         //puts posts into an encapsulated post object
         const renderPosts = () => this.state.pl.map((cs) => {
-            console.log(cs.key);
+            //console.log(cs.key);
             return (
                 <Post    
                     lat={cs.lat}// + Math.random() * 0.0001}
@@ -92,8 +95,7 @@ class WorldMap extends Component {
                     text={cs.text}
                     score={cs.score}
                     key={cs.key}
-                    //experimental
-                    //onClick={this.bringToFront}
+                    centerMap={this.centerMap}//function that centers the map on this object
                 />    
             );
         })
@@ -113,6 +115,7 @@ class WorldMap extends Component {
                 bootstrapURLKeys={{ key: 'AIzaSyCG1E70cgsFeSnoOkR738YzSKY5e2qX0iA'}}
                 defaultCenter={{lat: this.state.lat, lng: this.state.lng}}
                 defaultZoom={18}
+                center={this.state.center}
                 >
 
                 
@@ -124,6 +127,7 @@ class WorldMap extends Component {
                 <UserMarker 
                     lat={this.state.lat}
                     lng={this.state.lng}
+                    centerMap={this.centerMap}
                 />
 
 

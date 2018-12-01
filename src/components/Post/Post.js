@@ -121,7 +121,12 @@ class Post extends Component {
     bringToFront = (e) => {
         e.target.setAttribute('style', 'z-index: ' + (window.zadd++));
         console.log(e.target);
+        //centers the parent map on this post
+        let x = {lat: this.props.lat, lng: this.props.lng}
+        this.props.centerMap(x);
     }
+
+   
 
     render(){
         return (

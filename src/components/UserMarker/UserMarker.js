@@ -14,7 +14,8 @@ class UserMarker extends Component {
         this.state = {
             canPost: true,
             commentText: '',
-            upl: []
+            upl: [],
+            error: ''
         }
     }
 
@@ -74,38 +75,40 @@ class UserMarker extends Component {
 
     doPost = () => {
         
+        if(this.state.commentText === ''){
+            this.setState({error: 'Error: you must have something to post!'});
+        } else {
+            //https://firebase.google.com/docs/database/web/read-and-write
+            //get user
+            var user = firebase.auth().currentUser;
 
-        //https://firebase.google.com/docs/database/web/read-and-write
-        //get user
-        var user = firebase.auth().currentUser;
+            var vtd = {};
+            vtd[user.uid] = 'up';
 
-        var vtd = {};
-        vtd[user.uid] = 'up';
+            //consolidate post data, gets lat and lng from props
+            var data = {
+                author: user.displayName,
+                uid: user.uid,
+                text: this.state.commentText,
+                score: 1,
+                lat: this.props.lat,
+                lng: this.props.lng,
+                timestamp: new Date().getTime(),
+                voted: vtd
+            }
 
-        //consolidate post data, gets lat and lng from props
-        var data = {
-            author: user.displayName,
-            uid: user.uid,
-            text: this.state.commentText,
-            score: 1,
-            lat: this.props.lat,
-            lng: this.props.lng,
-            timestamp: new Date().getTime(),
-            voted: vtd
+            //get post key
+            var newPostKey = firebase.database().ref().child('posts').push().key;
+            
+            //update info at post key
+            var updates = {};
+            updates['/posts/' + newPostKey] = data;
+            updates['/user-posts/' + user.uid + '/' + newPostKey] = data;
+
+            //applies updates
+            firebase.database().ref().update(updates);
+            this.setState({error: ''});
         }
-
-        //get post key
-        var newPostKey = firebase.database().ref().child('posts').push().key;
-        
-        //update info at post key
-        var updates = {};
-        updates['/posts/' + newPostKey] = data;
-        updates['/user-posts/' + user.uid + '/' + newPostKey] = data;
-
-        //applies updates
-        firebase.database().ref().update(updates);
-
-
     }
 
     updateText = (event) => {
@@ -115,6 +118,9 @@ class UserMarker extends Component {
     bringToFront = (e) => {
         e.target.setAttribute('style', 'z-index: ' + (window.zadd++));
         console.log(e.target);
+        //see post
+        let x = {lat: this.props.lat, lng: this.props.lng}
+        this.props.centerMap(x);
     }
 
     render(){
@@ -123,11 +129,12 @@ class UserMarker extends Component {
             <div onClick={this.bringToFront}>
                 
                 <span className="postBox">
-                    <div>Post a Comment</div>
+                    <div className="pac">Post a Comment</div>
                     <textarea rows='5' cols='40' placeholder="Max Chars: 200" maxLength='200'  value={this.state.commentText} onChange={this.updateText}></textarea>
                     <button onClick={this.doPost}>
                     Post
                     </button>
+                    <div className='error'>{this.state.error}</div>
                 </span>
                 {Marker}
 

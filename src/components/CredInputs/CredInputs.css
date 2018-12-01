@@ -15,4 +15,6 @@ form {
 
 .error {
     color: red;
+    pointer-events: none;
+
 }

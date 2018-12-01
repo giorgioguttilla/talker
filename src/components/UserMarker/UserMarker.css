@@ -17,3 +17,8 @@ button{
     border-color: black;
     background-color: white;
 }
+
+.pac{
+    pointer-events: none;
+
+}
