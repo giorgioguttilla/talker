@@ -83,7 +83,16 @@ class WorldMap extends Component {
         console.log(latlng);
     }
 
+    usermarker = () => {
+        return (<UserMarker 
+            lat={this.state.lat + 0.0}
+            lng={this.state.lng + 0.0}
+            centerMap={this.centerMap}
+        />)
+    };
+
     render() {
+
         //puts posts into an encapsulated post object
         const renderPosts = () => this.state.pl.map((cs) => {
             //console.log(cs.key);
@@ -125,8 +134,8 @@ class WorldMap extends Component {
                 
 
                 <UserMarker 
-                    lat={this.state.lat}
-                    lng={this.state.lng}
+                    lat={this.state.lat + 0.0}
+                    lng={this.state.lng + 0.0}
                     centerMap={this.centerMap}
                 />
 

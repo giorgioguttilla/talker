@@ -25,6 +25,7 @@ class MainPage extends Component {
         cutoffdate = new Date(cutoffdate);
         console.log(cutoffdate);
         console.log(datenow);
+        
     }
 
     // //not working currently

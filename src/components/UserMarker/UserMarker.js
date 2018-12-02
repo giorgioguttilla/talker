@@ -21,11 +21,14 @@ class UserMarker extends Component {
 
     //should calculate the distance between the user and all their posts and
     //if too close on any of them then prevent from posting
-    // componentDidMount(){
+    // componentWillMount(){
+    //     this.testProximity();
+    // }
 
-
+    // testProximity = () => {
     //     //gets all the posts by the user and stores them for when we need to test proximity
-    //     firebase.auth().onAuthStateChanged((user) => {
+    //     //firebase.auth().onAuthStateChanged((user) => {
+    //     var user = firebase.auth().currentUser;
 
     //         let userPosts = [];
     //         firebase.database().ref('user-posts/' + user.uid).once('value').then((snapshot) => {
@@ -38,37 +41,41 @@ class UserMarker extends Component {
     //             });
     //             //will pass this into user marker
     //             this.setState({upl: userPosts});
+    //         }).then (() => {
+    //             var proxTest = true;
+
+    //             this.interval = setInterval(() => {
+
+    //                 this.state.upl.forEach((coords) => {
+    //                     var dist = //distance formula
+    //                     Math.abs(
+    //                         Math.sqrt(
+    //                             Math.pow(
+    //                                 (this.props.lat - coords.lat), 2
+    //                             ) + 
+    //                             Math.pow(
+    //                                 (this.props.lng - coords.lng), 2
+    //                             )
+    //                         )
+    //                     );
+
+    //                     if(dist < 0.001){
+    //                         // console.log(this.props.lat - coords.lat);
+    //                         // console.log(this.props.lng - coords.lng);
+    //                         // console.log(dist);
+    //                         proxTest = false;
+    //                     }
+    //                 });
+
+    //                 this.setState({canPost: proxTest});
+
+    //             }, 5000);
     //         });
-    //     })
+    //     //})
 
 
-    //     var proxTest = true;
-
-    //     this.interval = setInterval(() => {
-
-    //         this.state.upl.forEach((coords) => {
-    //             var dist = //distance formula
-    //             Math.abs(
-    //                 Math.sqrt(
-    //                     Math.pow(
-    //                         (this.props.lat - coords.lat), 2
-    //                     ) + 
-    //                     Math.pow(
-    //                         (this.props.lng - coords.lng), 2
-    //                     )
-    //                 )
-    //             );
-
-    //             if(dist < 0.01){
-    //                 console.log(dist);
-    //                 proxTest = false;
-    //             }
-    //         });
-
-    //         this.setState({canPost: proxTest});
-
-    //     }, 10000);
-    // }
+        
+    //}
 
 
     
@@ -107,7 +114,10 @@ class UserMarker extends Component {
 
             //applies updates
             firebase.database().ref().update(updates);
+            
             this.setState({error: ''});
+            this.setState({canPost: false});
+            
         }
     }
 

@@ -41,7 +41,7 @@ class Post extends Component {
             } else if(snapshot.val()[userid] === 'down'){   //voted down
                 firebase.database().ref('posts/' + this.props.$dimensionKey + '/score').transaction((thisScore) => {
             
-                    this.state.score = this.state.score + 2;
+                    this.setState({score: this.state.score + 2});
                     return thisScore + 2;
                 }).then(() => {
         
@@ -54,7 +54,7 @@ class Post extends Component {
             } else {    //did not vote yet
                 firebase.database().ref('posts/' + this.props.$dimensionKey + '/score').transaction((thisScore) => {
             
-                    this.state.score = this.state.score + 1;
+                    this.setState({score: this.state.score + 1});
                     return thisScore + 1;
                 }).then(() => {
         
@@ -88,7 +88,7 @@ class Post extends Component {
             } else if(snapshot.val()[userid] === 'up'){   //voted down
                 firebase.database().ref('posts/' + this.props.$dimensionKey + '/score').transaction((thisScore) => {
             
-                    this.state.score = this.state.score - 2;
+                    this.setState({score: this.state.score - 2});
                     return thisScore - 2;
                 }).then(() => {
         
@@ -101,7 +101,7 @@ class Post extends Component {
             } else {    //did not vote yet
                 firebase.database().ref('posts/' + this.props.$dimensionKey + '/score').transaction((thisScore) => {
             
-                    this.state.score = this.state.score - 1;
+                    this.setState({score: this.state.score - 1});
                     return thisScore - 1;
                 }).then(() => {
         
