@@ -1,5 +1,8 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+A social media site demo based primarily on React.
+Users are capable of registering accounts using Google Firebase and creating posts that appear on a world map, provided by google maps. Posts are deleted after a day. The site was written by myself and I plan to add features to it later.
+
 ## Available Scripts
 
 In the project directory, you can run:
